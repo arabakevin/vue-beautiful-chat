@@ -27,7 +27,7 @@
           <EmojiIcon :onEmojiPicked="_handleEmojiPicked" :color="colors.userInput.text" />
         </div>
         <div v-if="showFile && !isEditing" class="sc-user-input--button">
-          <FileIcons :onChange="_handleFileSubmit" :color="colors.userInput.text" />
+          <FileIcons :onChange="_handleFileSubmit" :color="colors.userInput.text" :acceptMemi="acceptMemi" />
         </div>
         <div v-if="isEditing" class="sc-user-input--button">
           <user-input-button @click.native.prevent="_editFinish" :color="colors.userInput.text" tooltip="cancel">
@@ -87,6 +87,11 @@ export default {
         }
       }
     },
+    acceptMemi: {
+      type: String,
+      required: true,
+      default: () => 'any'
+    },
     showEmoji: {
       type: Boolean,
       default: () => false
@@ -115,6 +120,7 @@ export default {
   data () {
     return {
       file: null,
+      emoji: null,
       inputActive: false,
       store
     }
@@ -155,15 +161,21 @@ export default {
     _submitText (event) {
       const text = this.$refs.userInput.textContent
       const file = this.file
+      const emoji = this.emoji
+      if (!text && !file && !emoji) {
+        return
+      }
       if (file) {
         this._submitTextWhenFile(event, text, file)
       } else {
         if (text && text.length > 0) {
           this.onSubmit({
             author: 'me',
-            type: 'text',
-            data: { text }
+            type: 'any',
+            data: { text, emoji }
           });
+          this.file = null
+          this.emoji = null
           this.$refs.userInput.innerHTML = ''
         }
       }
@@ -199,11 +211,18 @@ export default {
       }
     },
     _handleEmojiPicked (emoji) {
-      this.onSubmit({
-        author: 'me',
-        type: 'emoji',
-        data: { emoji }
-      })
+
+      const text = this.$refs.userInput.textContent
+
+      if (!text || !text.length > 0) {
+        console.log({emoji:emoji})
+        
+        this.$refs.userInput.textContent = emoji
+        this.emoji = emoji
+      }
+      
+      const Newtext = text+emoji
+      this.$refs.userInput.textContent = Newtext
     },
     _handleFileSubmit (file) {
       this.file = file

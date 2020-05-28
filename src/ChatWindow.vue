@@ -50,6 +50,7 @@
       v-if="!showUserList"
       :showEmoji="showEmoji"
       :onSubmit="onUserInputSubmit"
+      :acceptMemi="acceptMemi"
       :suggestions="getSuggestions()"
       :showFile="showFile"
       :placeholder="placeholder"
@@ -76,6 +77,11 @@ export default {
     showEmoji: {
       type: Boolean,
       default: false
+    },
+    acceptMemi: {
+      type: String,
+      required: true,
+      default: () => 'any'
     },
     showCloseButton: {
       type: Boolean,
@@ -163,6 +169,7 @@ export default {
 <style scoped>
 .sc-chat-window {
   width: 370px;
+  z-index: 10;
   height: calc(100% - 120px);
   max-height: 590px;
   position: fixed;

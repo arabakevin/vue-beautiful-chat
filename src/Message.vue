@@ -31,6 +31,9 @@
       </TextMessage>
       <EmojiMessage v-else-if="message.type === 'emoji'" :data="message.data" />
       <FileMessage v-else-if="message.type === 'file'" :data="message.data" :messageColors="determineMessageColors()" />
+
+      <AnyMessage v-else-if="message.type === 'any'" :data="message.data" :messageColors="determineMessageColors()" />
+
       <TypingMessage v-else-if="message.type === 'typing'" :messageColors="determineMessageColors()" />
       <SystemMessage v-else-if="message.type === 'system'" :data="message.data" :messageColors="determineMessageColors()">
           <slot name="system-message-body" :message="message.data">
@@ -46,6 +49,7 @@ import FileMessage from './messages/FileMessage.vue'
 import EmojiMessage from './messages/EmojiMessage.vue'
 import TypingMessage from './messages/TypingMessage.vue'
 import SystemMessage from './messages/SystemMessage.vue'
+import AnyMessage from './messages/AnyMessage.vue'
 import chatIcon from './assets/chat-icon.svg'
 import store from "./store/";
 
@@ -58,6 +62,7 @@ export default {
   components: {
     TextMessage,
     FileMessage,
+    AnyMessage,
     EmojiMessage,
     TypingMessage,
     SystemMessage
