@@ -1,16 +1,20 @@
 <template>
-  <div class='sc-message--file' :style="messageColors">
+  <div class='sc-message--file row' :style="messageColors"  :id="data.file.id">
     <div class='sc-message--file-icon'>
-      <img :src="data.file.url" class="sc-image">
+      <img :src="imgPreUrl(data.file.mime)" v-bind:alt="data.file.mime" class='sc-image'>
     </div>
     <div class='sc-message--file-name' :style="messageColors">
-      <a :href="data.file.url ? data.file.url : '#'" target='_blank'>{{data.file.name || ''}}</a>
+      <p>{{data.file.name || ''}}</p>
+      <p>{{fileConvertSize(data.file.size) || ''}}</p>
     </div>
+    <img class="download-icon" :src="icons.download.img" :alt="icons.download.name" @click="$emit('download')"/>
     <div class="sc-message--file-text" :style="messageColors">{{data.text}}<p v-if="data.meta" class='sc-message--meta' :style="messageColors">{{data.meta}}</p></div>
   </div>
 </template>
 
 <script>
+import DownloadIcon from '../assets/download-icon.png'
+
 export default {
   props: {
     data: {
@@ -20,6 +24,55 @@ export default {
     messageColors: {
       type: Object,
       required: true
+    },
+    icons:{
+      type: Object,
+      default: function () {
+        return {
+          download:{
+            img: DownloadIcon,
+            name: 'download icon',
+          },
+        }
+      }
+    },
+  },
+  methods:{
+    imgPreUrl(mime) {
+      let url = ''
+      if (mime == 'application/vnd.ms-excel') {
+        return require(`../assets/mimes/application_vnd.ms-excel.png`)
+      }
+      else if (mime == 'application/msword') {
+        return require(`../assets/mimes/application_msword.png`)
+      }
+      else if (mime == 'application/vnd.ms-powerpoint') {
+        return require(`../assets/mimes/application_vnd.ms-powerpoint.png`)
+      }
+      else if (mime == 'application/zip') {
+        return require(`../assets/mimes/application_zip.png`)
+      }
+      else if (mime == 'image/jpeg') {
+        return require(`../assets/mimes/image_jpeg.png`)
+      }
+      else if (mime == 'text/csv') {
+        return require(`../assets/mimes/text_csv.png`)
+      }
+      else if (mime == 'image/png') {
+        return require(`../assets/mimes/image_png.png`)
+      }
+      else if (mime == 'application/pdf') {
+        return require(`../assets/mimes/application_pdf.png`)
+      } else {
+        return require(`../assets/mimes/default_file.png`)
+      }
+    },
+    fileConvertSize(aSize) {
+	      aSize = Math.abs(parseInt(aSize, 10));
+      	var def = [[1, 'bytes'], [1024, 'kb'], [1024*1024, 'Mb'], [1024*1024*1024, 'Gb']];
+      	for(var i=0; i<def.length; i++){
+      		if(aSize<def[i][0]) return (aSize/def[i-1][0]).toFixed(2)+' '+def[i-1][1];
+      	}
     }
   }
 }
@@ -37,23 +90,24 @@ export default {
 
 .sc-message--content.sent .sc-message--file {
   word-wrap: break-word;
+  padding: 5px;
+  width: 223px;
 }
 
 .sc-message--file-icon {
   text-align: center;
-  margin-left: auto;
+  margin-left: 5px;
   margin-right: auto;
-  margin-top: 15px;
   margin-bottom: 0px;
 }
 
 .sc-image {
-  max-width: 100%;
-  min-width: 100%;
+  margin-top: 10px;
+  height: 60px;
+  width: 60px;
 }
 
 .sc-message--file-text {
-  padding: 17px 20px;
   border-radius: 6px;
   font-weight: 300;
   font-size: 14px;
@@ -64,10 +118,10 @@ export default {
 
 .sc-message--file-name {
   color: white;
-  padding-left: 15px;
+  padding-left: 10px;
   padding-right: 15px;
-  padding-top: 0;
-  font-size: x-small;
+  margin-top: 10px;
+  font-size: small;
   text-align: center;
 }
 
@@ -102,5 +156,12 @@ export default {
 
 .sc-message--content.received .sc-message--file a:hover {
   color: #0c0c0c;
+}
+
+.download-icon {
+  width: 40px;
+  height: 40px;
+  float: right;
+  margin-top: 30px;
 }
 </style>
