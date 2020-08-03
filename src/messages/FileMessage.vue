@@ -163,5 +163,6 @@ export default {
   height: 40px;
   float: right;
   margin-top: 30px;
+  cursor: pointer;
 }
 </style>
