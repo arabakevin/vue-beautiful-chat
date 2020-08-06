@@ -123,6 +123,7 @@ export default {
   margin-top: 10px;
   font-size: small;
   text-align: center;
+  width: 107px;
 }
 
 .sc-message--file-name a {
