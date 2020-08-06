@@ -41,30 +41,30 @@ export default {
     imgPreUrl(mime) {
       let url = ''
       if (mime == 'application/vnd.ms-excel') {
-        return require(`../assets/mimes/application_vnd.ms-excel.png`)
+        return require(`../assets/mimes/application_vnd.ms-excel.svg`)
       }
       else if (mime == 'application/msword') {
-        return require(`../assets/mimes/application_msword.png`)
+        return require(`../assets/mimes/application_msword.svg`)
       }
       else if (mime == 'application/vnd.ms-powerpoint') {
-        return require(`../assets/mimes/application_vnd.ms-powerpoint.png`)
+        return require(`../assets/mimes/application_vnd.ms-powerpoint.svg`)
       }
       else if (mime == 'application/zip') {
-        return require(`../assets/mimes/application_zip.png`)
+        return require(`../assets/mimes/application_zip.svg`)
       }
       else if (mime == 'image/jpeg') {
-        return require(`../assets/mimes/image_jpeg.png`)
+        return require(`../assets/mimes/image_jpeg.svg`)
       }
       else if (mime == 'text/csv') {
-        return require(`../assets/mimes/text_csv.png`)
+        return require(`../assets/mimes/text_csv.svg`)
       }
       else if (mime == 'image/png') {
-        return require(`../assets/mimes/image_png.png`)
+        return require(`../assets/mimes/image_png.svg`)
       }
       else if (mime == 'application/pdf') {
-        return require(`../assets/mimes/application_pdf.png`)
+        return require(`../assets/mimes/application_pdf.svg`)
       } else {
-        return require(`../assets/mimes/default_file.png`)
+        return require(`../assets/mimes/default_file.svg`)
       }
     },
     fileConvertSize(aSize) {
