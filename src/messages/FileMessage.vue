@@ -55,6 +55,9 @@ export default {
       else if (mime == 'image/jpeg') {
         return require(`../assets/mimes/image_jpeg.svg`)
       }
+      else if (mime == 'image/svg+xml') {
+        return require(`../assets/mimes/image_svg.svg`)
+      }
       else if (mime == 'text/csv') {
         return require(`../assets/mimes/text_csv.svg`)
       }
