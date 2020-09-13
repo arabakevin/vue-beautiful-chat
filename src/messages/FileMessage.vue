@@ -4,10 +4,17 @@
       <img :src="imgPreUrl(data.file.mime)" v-bind:alt="data.file.mime" class='sc-image'>
     </div>
     <div class='sc-message--file-name' :style="messageColors">
-      <p>{{data.file.name || ''}}</p>
-      <p>{{fileConvertSize(data.file.size) || ''}}</p>
+      <p v-if="data.file.name.length > 16">{{ data.file.name.substring(0,16) + '...' || ''}}</p>
+      <p v-if="data.file.name.length <= 16">{{ data.file.name || ''}}</p>
     </div>
-    <img class="download-icon" :src="icons.download.img" :alt="icons.download.name" @click="$emit('download')"/>
+    <div>
+      <div class='sc-message--file-size' :style="messageColors">
+        <p>{{fileConvertSize(data.file.size) || ''}}</p>
+      </div>
+      <div class='sc-message--file-icons' :style="messageColors">
+        <img class="download-icon" :src="icons.download.img" :alt="icons.download.name" title="Download document" @click="$emit('download')"/>
+      </div>
+    </div>
     <div class="sc-message--file-text" :style="messageColors">{{data.text}}<p v-if="data.meta" class='sc-message--meta' :style="messageColors">{{data.meta}}</p></div>
   </div>
 </template>
@@ -72,7 +79,7 @@ export default {
     },
     fileConvertSize(aSize) {
 	      aSize = Math.abs(parseInt(aSize, 10));
-      	var def = [[1, 'bytes'], [1024, 'kb'], [1024*1024, 'Mb'], [1024*1024*1024, 'Gb']];
+      	var def = [[1, 'b'], [1024, 'kb'], [1024*1024, 'Mb'], [1024*1024*1024, 'Gb']];
       	for(var i=0; i<def.length; i++){
       		if(aSize<def[i][0]) return (aSize/def[i-1][0]).toFixed(2)+' '+def[i-1][1];
       	}
@@ -100,8 +107,8 @@ export default {
 .sc-message--file-icon {
   text-align: center;
   margin-left: 5px;
-  margin-right: auto;
   margin-bottom: 0px;
+  z-index: 1;
 }
 
 .sc-image {
@@ -121,12 +128,19 @@ export default {
 
 .sc-message--file-name {
   color: white;
-  padding-left: 10px;
-  padding-right: 15px;
   margin-top: 10px;
   font-size: small;
-  text-align: center;
-  width: 107px;
+  text-align: left;
+  width: 148px;
+}
+
+.sc-message--file-size {
+    margin-top: -35px;
+    font-size: small;
+    text-align: left;
+    margin-left: 64px;
+    width: 148px;
+    height: 10px;
 }
 
 .sc-message--file-name a {
@@ -162,11 +176,16 @@ export default {
   color: #0c0c0c;
 }
 
+.sc-message--file-icons {
+  width: 200px;
+  margin-top: -20px;
+}
+
 .download-icon {
   width: 40px;
   height: 40px;
   float: right;
-  margin-top: 30px;
+  margin-top: 5px;
   cursor: pointer;
 }
 </style>
