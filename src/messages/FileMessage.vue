@@ -7,13 +7,11 @@
       <p v-if="data.file.name.length > 16">{{ data.file.name.substring(0,16) + '...' || ''}}</p>
       <p v-if="data.file.name.length <= 16">{{ data.file.name || ''}}</p>
     </div>
-    <div>
-      <div class='sc-message--file-size' :style="messageColors">
-        <p>{{fileConvertSize(data.file.size) || ''}}</p>
-      </div>
-      <div class='sc-message--file-icons' :style="messageColors">
-        <img class="download-icon" :src="icons.download.img" :alt="icons.download.name" title="Download document" @click="$emit('download')"/>
-      </div>
+    <div class='sc-message--file-size' :style="messageColors">
+      <p>{{fileConvertSize(data.file.size) || ''}}</p>
+    </div>
+    <div class='sc-message--file-icons' :style="messageColors">
+      <img class="download-icon" :src="icons.download.img" :alt="icons.download.name" title="Download document" @click="$emit('download')"/>
     </div>
     <div class="sc-message--file-text" :style="messageColors">{{data.text}}<p v-if="data.meta" class='sc-message--meta' :style="messageColors">{{data.meta}}</p></div>
   </div>
@@ -79,7 +77,7 @@ export default {
     },
     fileConvertSize(aSize) {
 	      aSize = Math.abs(parseInt(aSize, 10));
-      	var def = [[1, 'b'], [1024, 'kb'], [1024*1024, 'Mb'], [1024*1024*1024, 'Gb']];
+      	var def = [[1, 'bytes'], [1024, 'kb'], [1024*1024, 'Mb'], [1024*1024*1024, 'Gb']];
       	for(var i=0; i<def.length; i++){
       		if(aSize<def[i][0]) return (aSize/def[i-1][0]).toFixed(2)+' '+def[i-1][1];
       	}
@@ -94,7 +92,6 @@ export default {
   font-weight: 300;
   font-size: 14px;
   line-height: 1.4;
-  /* white-space: pre-wrap; */
   -webkit-font-smoothing: subpixel-antialiased
 }
 
@@ -105,14 +102,10 @@ export default {
 }
 
 .sc-message--file-icon {
-  text-align: center;
-  margin-left: 5px;
-  margin-bottom: 0px;
   z-index: 1;
 }
 
 .sc-image {
-  margin-top: 10px;
   height: 60px;
   width: 60px;
 }
@@ -128,7 +121,7 @@ export default {
 
 .sc-message--file-name {
   color: white;
-  margin-top: 10px;
+  margin-top: 7px;
   font-size: small;
   text-align: left;
   width: 148px;
@@ -181,11 +174,14 @@ export default {
   margin-top: -20px;
 }
 
+.download-icon, .sc-message--file-icon {
+  filter: invert(100%) sepia(12%) saturate(24%) hue-rotate(26deg) brightness(104%) contrast(107%)
+}
 .download-icon {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   float: right;
-  margin-top: 5px;
+  margin-top: -15px;
   cursor: pointer;
 }
 </style>
