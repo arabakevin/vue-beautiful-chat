@@ -1,7 +1,9 @@
 <template>
   <div class='sc-message--file row' :style="messageColors"  :id="data.file.id">
     <div class='sc-message--file-icon'>
-      <img :src="imgPreUrl(data.file.mime)" v-bind:alt="data.file.mime" class='sc-image'>
+      <icon-base :style="messageColors" viewBox="0 0 60 60" width="60" height="60">
+        <icon-pdf-file class='sc-image'/>
+      </icon-base>
     </div>
     <div class='sc-message--file-name' :style="messageColors">
       <p v-if="data.file.name.length > 16">{{ data.file.name.substring(0,16) + '...' || ''}}</p>
@@ -23,7 +25,8 @@
 </template>
 
 <script>
-
+import IconBase from './../components/IconBase.vue'
+import IconPdfFile from './../components/mimes/IconPdfFile.vue'
 export default {
   props: {
     data: {
@@ -75,6 +78,10 @@ export default {
       		if(aSize<def[i][0]) return (aSize/def[i-1][0]).toFixed(2)+' '+def[i-1][1];
       	}
     }
+  },
+  components:{
+    IconBase,
+    IconPdfFile,
   }
 }
 </script>
