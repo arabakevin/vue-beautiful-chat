@@ -1,7 +1,34 @@
 <template>
   <div class="sc-message--file" :style="messageColors" :id="data.file.id">
-    <div class="sc-message--file-icon">
+    <div class="sc-message--file-icon" v-if="data.file.mime == 'application/msword'">
+      <ApplicationWord />
+    </div>
+    <div class="sc-message--file-icon" v-else-if="data.file.mime == 'application/vnd.ms-excel'">
+      <ApplicationExcel />
+    </div>
+    <div class="sc-message--file-icon" v-else-if="data.file.mime == 'application/vnd.ms-powerpoint'">
+      <ApplicationPowerPoint />
+    </div>
+    <div class="sc-message--file-icon" v-else-if="data.file.mime == 'application/zip'">
+      <ApplicationZip />
+    </div>
+    <div class="sc-message--file-icon" v-else-if="data.file.mime == 'image/jpeg'">
+      <ApplicationJpg />
+    </div>
+    <div class="sc-message--file-icon" v-else-if="data.file.mime == 'image/svg+xml'">
+      <ApplicationSvg />
+    </div>
+    <div class="sc-message--file-icon" v-else-if="data.file.mime == 'text/csv'">
+      <ApplicationCsv />
+    </div>
+    <div class="sc-message--file-icon" v-else-if="data.file.mime == 'application/pdf'">
       <ApplicationPdf />
+    </div>
+    <div class="sc-message--file-icon" v-else-if="data.file.mime == 'image/png'">
+      <ApplicationPng />
+    </div>
+    <div class="sc-message--file-icon" v-else="">
+      <ApplicationDefault />
     </div>
     <div class="sc-message--file-content">
       <div class="sc-message--file-name" :style="messageColors">
@@ -23,8 +50,16 @@
 
 <script>
 
+import ApplicationWord from '../assets/mimes/application_msword.svg.vue'
 import ApplicationPdf from '../assets/mimes/application_pdf.svg.vue'
-
+import ApplicationPng from '../assets/mimes/image_png.svg.vue'
+import ApplicationExcel from '../assets/mimes/application_vnd.ms-excel.svg.vue'
+import ApplicationPowerPoint from '../assets/mimes/application_vnd.ms-powerpoint.svg.vue'
+import ApplicationZip from '../assets/mimes/application_zip.svg.vue'
+import ApplicationDefault from '../assets/mimes/default_file.svg.vue'
+import ApplicationJpg from '../assets/mimes/image_jpeg.svg.vue'
+import ApplicationSvg from '../assets/mimes/image_svg.svg.vue'
+import ApplicationCsv from '../assets/mimes/text_csv.svg.vue'
 export default {
   props: {
     data: {
@@ -53,7 +88,16 @@ export default {
     }
   },
   components:{
+    ApplicationWord,
     ApplicationPdf,
+    ApplicationPng,
+    ApplicationExcel,
+    ApplicationPowerPoint,
+    ApplicationZip,
+    ApplicationDefault,
+    ApplicationJpg,
+    ApplicationSvg,
+    ApplicationCsv,
   }
 }
 </script>
