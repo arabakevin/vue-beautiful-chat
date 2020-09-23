@@ -29,6 +29,7 @@
       @scrollToTop="$emit('scrollToTop')"
       @remove="$emit('remove', $event)"
       @download="$emit('download', $event)"
+      @share="$emit('share', $event)"
     >
       <template v-slot:user-avatar="scopedProps">
         <slot name="user-avatar" :user="scopedProps.user" :message="scopedProps.message">

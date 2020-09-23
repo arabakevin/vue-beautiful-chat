@@ -30,6 +30,7 @@
       @edit="$emit('edit', $event)"
       @remove="$emit('remove', $event)"
       @download="$emit('download', $event)"
+      @share="$emit('share', $event)"
     >
       <template v-slot:header>
         <slot name="header">

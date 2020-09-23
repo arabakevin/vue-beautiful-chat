@@ -1,23 +1,23 @@
 <template>
-  <div class="sc-message">
+  <div class="sc-message" :id="message.id">
     <div class="sc-message--content" :class="{
         sent: message.author === 'me',
         received: message.author !== 'me' && message.type !== 'system',
         system: message.type === 'system'
       }">
-      <slot 
+      <slot
         name="user-avatar"
-        :message="message" 
+        :message="message"
         :user="user">
           <div v-if="message.type !== 'system'" :title="authorName" class="sc-message--avatar" :style="{
             backgroundImage: `url(${chatImageUrl})`
           }" v-tooltip="authorName"></div>
       </slot>
 
-      <TextMessage 
-        v-if="message.type === 'text'" 
-        :message="message" 
-        :messageColors="determineMessageColors()" 
+      <TextMessage
+        v-if="message.type === 'text'"
+        :message="message"
+        :messageColors="determineMessageColors()"
         :messageStyling="messageStyling"
         @remove="$emit('remove')">
           <template v-slot:default="scopedProps">
@@ -30,7 +30,7 @@
           </template>
       </TextMessage>
       <EmojiMessage v-else-if="message.type === 'emoji'" :data="message.data" />
-      <FileMessage v-else-if="message.type === 'file' && message.data.file.mime" :data="message.data" :messageColors="determineMessageColors()" @download="$emit('download')"/>
+      <FileMessage v-else-if="message.type === 'file' && message.data.file.mime" :data="message.data" :messageColors="determineMessageColors()" @download="$emit('download')" @share="$emit('share')"/>
       <ImageMessage v-else-if="message.type === 'file' && message.data.file.url" :data="message.data" :messageColors="determineMessageColors()" />
       <TypingMessage v-else-if="message.type === 'typing'" :messageColors="determineMessageColors()" />
       <SystemMessage v-else-if="message.type === 'system'" :data="message.data" :messageColors="determineMessageColors()">
