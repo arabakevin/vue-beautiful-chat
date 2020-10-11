@@ -175,7 +175,10 @@ export default {
       const m = this.messageList.find(m=>m.id === message.id);
       m.isEdited = true;
       m.data.text = message.data.text;
-    }
+    },
+    endInitializeVueBeautifulChat () {
+      // called when the discussion is loaded or is updated
+    },
   }
 }
 ```

@@ -97,10 +97,10 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(this._scrollDown())
+    this.$nextTick(this._scrollDown(), this.endOfInit())
   },
   updated() {
-    if (this.shouldScrollToBottom()) this.$nextTick(this._scrollDown())
+    if (this.shouldScrollToBottom()) this.$nextTick(this._scrollDown(), this.endOfInit())
   },
   methods: {
     _scrollDown() {
@@ -115,6 +115,9 @@ export default {
       const scrollTop = this.$refs.scrollList.scrollTop
       const scrollable = scrollTop > this.$refs.scrollList.scrollHeight - 600
       return this.alwaysScrollToBottom || scrollable
+    },
+    endOfInit () {
+      this.$emit('endInitialize')
     },
     profile(author) {
       const profile = this.participants.find((profile) => profile.id === author)
