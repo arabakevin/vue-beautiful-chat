@@ -122,6 +122,7 @@ export default {
     handleScroll(e) {
       if (e.target.scrollTop === 0) {
         this.$emit('scrollToTop')
+        this.$refs.scrollList.scrollTop = 5
       }
     },
     shouldScrollToBottom() {
