@@ -37,6 +37,7 @@
       @edit="$emit('edit', $event)"
       @remove="$emit('remove', $event)"
       @download="$emit('download', $event)"
+      @endInitialize="$emit('endInitialize')"
     >
       <template v-slot:header>
         <slot name="header"> </slot>
