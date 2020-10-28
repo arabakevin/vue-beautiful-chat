@@ -110,7 +110,7 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(this.$nextTick(this._scrollDown(), this.endOfInit())
+    this.$nextTick(this._scrollDown(), this.endOfInit())
   },
   updated() {
     if (this.shouldScrollToBottom())  this.$nextTick(this._scrollDown(), this.endOfInit())
@@ -135,9 +135,10 @@ export default {
       // A profile may not be found for system messages or messages by 'me'
       return profile || {imageUrl: '', name: ''}
     },
-    endOfInit () {
+    endOfInit() {
       this.$emit('endInitialize')
     }
+  }
 }
 </script>
 
